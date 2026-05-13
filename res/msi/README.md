@@ -1,4 +1,4 @@
-# RustDesk msi project
+# claildesk msi project
 
 Use Visual Studio 2022 to compile this project.
 

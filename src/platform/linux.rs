@@ -320,7 +320,7 @@ fn set_x11_env(desktop: &Desktop) {
 }
 
 #[inline]
-fn stop_rustdesk_servers() {
+fn stop_claildesk_servers() {
     let _ = run_cmds(&format!(
         r##"ps -ef | grep -E '{} +--server' | awk '{{printf("kill -9 %d\n", $2)}}' | bash"##,
         crate::get_app_name().to_lowercase(),
@@ -402,15 +402,15 @@ fn should_start_server(
 }
 
 // to-do: stop_server(&mut user_server); may not stop child correctly
-// stop_rustdesk_servers() is just a temp solution here.
+// stop_claildesk_servers() is just a temp solution here.
 fn force_stop_server() {
-    stop_rustdesk_servers();
+    stop_claildesk_servers();
     sleep_millis(super::SERVICE_INTERVAL);
 }
 
 pub fn start_os_service() {
     check_if_stop_service();
-    stop_rustdesk_servers();
+    stop_claildesk_servers();
     stop_subprocess();
     start_uinput_service();
 
@@ -488,7 +488,7 @@ pub fn start_os_service() {
         let keeps_headless = sid.is_empty() && desktop.is_headless();
         let keeps_session = sid == desktop.sid;
         if keeps_headless || keeps_session {
-            // for fixing https://github.com/rustdesk/rustdesk/issues/3129 to avoid too much dbus calling,
+            // for fixing https://github.com/claildesk/claildesk/issues/3129 to avoid too much dbus calling,
             sleep_millis(500);
         } else {
             sleep_millis(super::SERVICE_INTERVAL);
@@ -780,9 +780,9 @@ pub fn check_super_user_permission() -> ResultType<bool> {
     } else {
         arg = "echo";
     }
-    // https://github.com/rustdesk/rustdesk/issues/2756
+    // https://github.com/claildesk/claildesk/issues/2756
     if let Ok(status) = Command::new("pkexec").arg(arg).status() {
-        // https://github.com/rustdesk/rustdesk/issues/5205#issuecomment-1658059657s
+        // https://github.com/claildesk/claildesk/issues/5205#issuecomment-1658059657s
         Ok(status.code() != Some(126) && status.code() != Some(127))
     } else {
         Ok(true)
@@ -1000,7 +1000,7 @@ mod desktop {
         pub display: String,
         pub xauth: String,
         pub home: String,
-        pub is_rustdesk_subprocess: bool,
+        pub is_claildesk_subprocess: bool,
         pub wl_display: String,
     }
 
@@ -1017,7 +1017,7 @@ mod desktop {
 
         #[inline]
         pub fn is_headless(&self) -> bool {
-            self.sid.is_empty() || self.is_rustdesk_subprocess
+            self.sid.is_empty() || self.is_claildesk_subprocess
         }
 
         fn get_display_xauth_xwayland(&mut self) {
@@ -1219,14 +1219,14 @@ mod desktop {
         }
 
         fn set_is_subprocess(&mut self) {
-            self.is_rustdesk_subprocess = false;
+            self.is_claildesk_subprocess = false;
             let cmd = format!(
                 "ps -ef | grep '{}/xorg.conf' | grep -v grep | wc -l",
                 crate::get_app_name().to_lowercase()
             );
             if let Ok(res) = run_cmds(&cmd) {
                 if res.trim() != "0" {
-                    self.is_rustdesk_subprocess = true;
+                    self.is_claildesk_subprocess = true;
                 }
             }
         }
@@ -1236,7 +1236,7 @@ mod desktop {
                 // Xwayland display and xauth may not be available in a short time after login.
                 if is_xwayland_running() && !self.is_login_wayland() {
                     self.get_display_xauth_xwayland();
-                    self.is_rustdesk_subprocess = false;
+                    self.is_claildesk_subprocess = false;
                 }
                 return;
             }
@@ -1244,7 +1244,7 @@ mod desktop {
             let seat0_values = get_values_of_seat0_with_gdm_wayland(&[0, 1, 2]);
             if seat0_values[0].is_empty() {
                 *self = Self::default();
-                self.is_rustdesk_subprocess = false;
+                self.is_claildesk_subprocess = false;
                 return;
             }
 
@@ -1255,7 +1255,7 @@ mod desktop {
             if self.is_login_wayland() {
                 self.display = "".to_owned();
                 self.xauth = "".to_owned();
-                self.is_rustdesk_subprocess = false;
+                self.is_claildesk_subprocess = false;
                 return;
             }
 
@@ -1267,7 +1267,7 @@ mod desktop {
                     self.display = "".to_owned();
                     self.xauth = "".to_owned();
                 }
-                self.is_rustdesk_subprocess = false;
+                self.is_claildesk_subprocess = false;
             } else {
                 self.get_display_x11();
                 self.get_xauth_x11();

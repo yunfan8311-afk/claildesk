@@ -778,7 +778,7 @@ class InputModel {
   static Future<Rect?> fillRemoteCoordsAndGetCurFrame(
       List<RemoteWindowCoords> remoteWindowCoords) async {
     final coords =
-        await rustDeskWinManager.getOtherRemoteWindowCoordsFromMain();
+        await claildeskWinManager.getOtherRemoteWindowCoordsFromMain();
     final wc = WindowController.fromWindowId(kWindowId!);
     try {
       final frame = await wc.getFrame();
@@ -1123,7 +1123,7 @@ class InputModel {
     }
 
     int minX = rect.left.toInt();
-    // https://github.com/rustdesk/rustdesk/issues/6678
+    // https://github.com/claildesk/claildesk/issues/6678
     // For Windows, [0,maxX], [0,maxY] should be set to enable window snapping.
     int maxX = (rect.left + rect.width).toInt() -
         (peerPlatform == kPeerPlatformWindows ? 0 : 1);

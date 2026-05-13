@@ -457,7 +457,7 @@ pub fn is_letter_rdev_key(key: &rdev::Key) -> bool {
     )
 }
 
-// https://github.com/rustdesk/rustdesk/issues/8599
+// https://github.com/claildesk/claildesk/issues/8599
 // We just add these keys as letter keys.
 #[inline]
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
@@ -896,7 +896,7 @@ fn _map_keyboard_mode(_peer: &str, event: &Event, mut key_event: KeyEvent) -> Op
     #[cfg(target_os = "windows")]
     let keycode = match _peer {
         OS_LOWER_WINDOWS => {
-            // https://github.com/rustdesk/rustdesk/issues/1371
+            // https://github.com/claildesk/claildesk/issues/1371
             // Filter scancodes that are greater than 255 and the hight word is not 0xE0.
             if event.position_code > 255 && (event.position_code >> 8) != 0xE0 {
                 return None;
@@ -940,7 +940,7 @@ fn _map_keyboard_mode(_peer: &str, event: &Event, mut key_event: KeyEvent) -> Op
     Some(key_event)
 }
 
-// https://github.com/rustdesk/rustdesk/issues/6793
+// https://github.com/claildesk/claildesk/issues/6793
 #[inline]
 fn try_workaround_linux_long_press(key_event: KeyEvent) -> Vec<KeyEvent> {
     let mut key_event_up = key_event.clone();
@@ -1046,7 +1046,7 @@ fn is_press(event: &Event) -> bool {
     matches!(event.event_type, EventType::KeyPress(_))
 }
 
-// https://github.com/rustdesk/rustdesk/wiki/FAQ#keyboard-translation-modes
+// https://github.com/claildesk/claildesk/wiki/FAQ#keyboard-translation-modes
 pub fn translate_keyboard_mode(peer: &str, event: &Event, key_event: KeyEvent) -> Vec<KeyEvent> {
     let mut events: Vec<KeyEvent> = Vec::new();
 

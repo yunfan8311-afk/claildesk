@@ -117,7 +117,7 @@ async fn accept_connection_(server: ServerPtr, socket: Stream, secure: bool) -> 
     drop(socket);
     // even we drop socket, below still may fail if not use reuse_addr,
     // there is TIME_WAIT before socket really released, so sometimes we
-    // see “Only one usage of each socket address is normally permitted” on windows sometimes,
+    // see “Only one usage of each socket address is normally permitted�?on windows sometimes,
     let listener = new_listener(local_addr, true).await?;
     log::info!("Server listening on: {}", &listener.local_addr()?);
     if let Ok((stream, addr)) = timeout(CONNECT_TIMEOUT, listener.accept()).await? {
@@ -649,7 +649,7 @@ pub async fn stop_main_window_process() {
     #[cfg(windows)]
     {
         // in case above failure, e.g. zombie process
-        if let Err(e) = crate::platform::try_kill_rustdesk_main_window_process() {
+        if let Err(e) = crate::platform::try_kill_claildesk_main_window_process() {
             log::error!("kill failed: {}", e);
         }
     }

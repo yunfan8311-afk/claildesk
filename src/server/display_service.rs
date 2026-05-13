@@ -8,7 +8,7 @@ use hbb_common::get_version_number;
 use hbb_common::protobuf::MessageField;
 use scrap::Display;
 
-// https://github.com/rustdesk/rustdesk/discussions/6042, avoiding dbus call
+// https://github.com/claildesk/claildesk/discussions/6042, avoiding dbus call
 
 pub const NAME: &'static str = "display";
 
@@ -187,7 +187,7 @@ pub fn check_displays_changed() -> ResultType<()> {
     #[cfg(target_os = "linux")]
     {
         // Currently, wayland need to call wayland::clear() before call Display::all(), otherwise it will cause
-        // block, or even crash here, https://github.com/rustdesk/rustdesk/blob/0bb4d43e9ea9d9dfb9c46c8d27d1a97cd0ad6bea/libs/scrap/src/wayland/pipewire.rs#L235
+        // block, or even crash here, https://github.com/claildesk/claildesk/blob/0bb4d43e9ea9d9dfb9c46c8d27d1a97cd0ad6bea/libs/scrap/src/wayland/pipewire.rs#L235
         if !is_x11() {
             return Ok(());
         }
@@ -228,11 +228,11 @@ pub(super) fn get_original_resolution(
     h: usize,
 ) -> MessageField<Resolution> {
     #[cfg(windows)]
-    let is_rustdesk_virtual_display =
-        crate::virtual_display_manager::rustdesk_idd::is_virtual_display(&display_name);
+    let is_claildesk_virtual_display =
+        crate::virtual_display_manager::claildesk_idd::is_virtual_display(&display_name);
     #[cfg(not(windows))]
-    let is_rustdesk_virtual_display = false;
-    Some(if is_rustdesk_virtual_display {
+    let is_claildesk_virtual_display = false;
+    Some(if is_claildesk_virtual_display {
         Resolution {
             width: 0,
             height: 0,

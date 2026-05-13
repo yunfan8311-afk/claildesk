@@ -1,11 +1,11 @@
 [package]
-name = "qemu-rustdesk"
+name = "qemu-claildesk"
 version = "0.1.0"
-authors = ["rustdesk <info@rustdesk.com>"]
+authors = ["claildesk <info@claildesk.com>"]
 edition = "2021"
 
 [dependencies]
-qemu-display = { git = "https://github.com/rustdesk/qemu-display" }
+qemu-display = { git = "https://github.com/claildesk/qemu-display" }
 hbb_common = { path = "../../libs/hbb_common" }
 clap = { version = "4.1", features = ["derive"] }
 zbus = { version = "3.14.1" }

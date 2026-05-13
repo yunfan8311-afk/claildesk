@@ -223,10 +223,10 @@ class _RemotePageState extends State<RemotePage> {
                 content == '[]' ||
                 content == '<>' ||
                 content == "{}" ||
-                content == '”“' ||
-                content == '《》' ||
+                content == '”�? ||
+                content == '《�? ||
                 content == '（）' ||
-                content == '【】')) {
+                content == '【�?)) {
           // can not only input content[0], because when input ], [ are also auo insert, which cause ] never be input
           bind.sessionInputString(sessionId: sessionId, value: content);
           openKeyboard();
@@ -295,7 +295,7 @@ class _RemotePageState extends State<RemotePage> {
         return false;
       },
       child: Scaffold(
-          // workaround for https://github.com/rustdesk/rustdesk/issues/3131
+          // workaround for https://github.com/claildesk/claildesk/issues/3131
           floatingActionButtonLocation: keyboardIsVisible
               ? FABLocation(FloatingActionButtonLocation.endFloat, 0, -35)
               : null,

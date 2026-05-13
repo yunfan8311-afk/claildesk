@@ -106,7 +106,7 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
 
     tabController.onRemoved = (_, id) => onRemoveId(id);
 
-    rustDeskWinManager.setMethodHandler(_remoteMethodHandler);
+    claildeskWinManager.setMethodHandler(_remoteMethodHandler);
     if (!_isScreenRectSet) {
       Future.delayed(Duration.zero, () {
         restoreWindowPosition(

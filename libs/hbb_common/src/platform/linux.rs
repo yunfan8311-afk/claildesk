@@ -50,7 +50,7 @@ const INVALID_SESSION: &str = "4294967295";
 
 pub fn get_display_server() -> String {
     // Check for forced display server environment variable first
-    if let Ok(forced_display) = std::env::var("RUSTDESK_FORCED_DISPLAY_SERVER") {
+    if let Ok(forced_display) = std::env::var("claildesk_FORCED_DISPLAY_SERVER") {
         return forced_display;
     }
 
@@ -148,7 +148,7 @@ fn _get_values_of_seat0(indices: &[usize], ignore_gdm_wayland: bool) -> Vec<Stri
             }
         }
 
-        // some case, there is no seat0 https://github.com/rustdesk/rustdesk/issues/73
+        // some case, there is no seat0 https://github.com/claildesk/claildesk/issues/73
         for line in String::from_utf8_lossy(&output.stdout).lines() {
             if ignore_loginctl_line(line) {
                 continue;

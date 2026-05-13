@@ -106,7 +106,7 @@ pub const SCRAP_UBUNTU_HIGHER_REQUIRED: &str = "Wayland requires Ubuntu 21.04 or
 pub const SCRAP_OTHER_VERSION_OR_X11_REQUIRED: &str =
     "Wayland requires higher version of linux distro. Please try X11 desktop or change your OS.";
 pub const SCRAP_X11_REQUIRED: &str = "x11 expected";
-pub const SCRAP_X11_REF_URL: &str = "https://rustdesk.com/docs/en/manual/linux/#x11-required";
+pub const SCRAP_X11_REF_URL: &str = "https://claildesk.com/docs/en/manual/linux/#x11-required";
 
 #[cfg(feature = "flutter")]
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
@@ -2630,7 +2630,7 @@ lazy_static::lazy_static! {
             msgtype: "error",
             title: "Login Error",
             text: "Login screen using Wayland is not supported",
-            link: "https://rustdesk.com/docs/en/manual/linux/#login-screen",
+            link: "https://claildesk.com/docs/en/manual/linux/#login-screen",
             try_again: true,
         }), (LOGIN_MSG_DESKTOP_SESSION_NOT_READY, LoginErrorMsgBox{
             msgtype: "session-login",
@@ -3215,7 +3215,7 @@ async fn hc_connection_(
     mut rx: UnboundedReceiver<()>,
     token: String,
 ) -> ResultType<()> {
-    let mut timer = crate::rustdesk_interval(interval(crate::TIMER_OUT));
+    let mut timer = crate::claildesk_interval(interval(crate::TIMER_OUT));
     let mut last_recv_msg = Instant::now();
     let mut keep_alive = crate::DEFAULT_KEEP_ALIVE;
 
